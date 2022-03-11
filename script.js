@@ -14,6 +14,8 @@ let countTime;
 let minutes = 0;
 let seconds = 0;
 
+let timesArr = [];
+
 const handleStart = () => {
 	clearInterval(countTime); // blokujemy mozliwosc wielokrotnego przyspieszenia intervala
 
@@ -32,7 +34,23 @@ const handleStart = () => {
 			seconds = 0;
 			stopwatch.textContent = `${minutes}:00`;
 		}
-	}, 1000); //1s
+	}, 100); //1s
+};
+const handleStop = () => {
+	time.innerHTML = `Ostatni czas: ${stopwatch.textContent}`; // ostatni czas na stop button
+
+	if (stopwatch.textContent !== '0:00') {
+		time.style.visibility = `visible`;
+		// pokazywanie czasu =/= niż 0:00 pod timerem(ost czas)
+		timesArr.push(stopwatch.textContent);
+		// dodajemy czasy do tablicy timesArr
+	}
+
+	clearInterval(countTime);
+	stopwatch.textContent = '0:00';
+	// timeList.textContent = ``;
+	seconds = 0;
+	minutes = 0;
 };
 
 const handlePause = () => {
@@ -41,3 +59,4 @@ const handlePause = () => {
 
 startBtn.addEventListener(`click`, handleStart);
 pauseBtn.addEventListener(`click`, handlePause);
+stopBtn.addEventListener(`click`, handleStop);
