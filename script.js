@@ -6,6 +6,7 @@ const historyBtn = document.querySelector(`.history`);
 const stopwatch = document.querySelector(`.stopwatch`);
 const time = document.querySelector(`.time`);
 const timeList = document.querySelector(`.time-list`);
+
 const infoBtn = document.querySelector(`.info`);
 const modalShadow = document.querySelector(`.modal-shadow`);
 const closeModalBtn = document.querySelector(`.close`);
@@ -16,12 +17,13 @@ let seconds = 0;
 
 let timesArr = [];
 
+// start stopera
 const handleStart = () => {
-	clearInterval(countTime); // blokujemy mozliwosc wielokrotnego przyspieszenia intervala
+	clearInterval(countTime); // blokujemy mozliwosc wielokrotnego przyspieszenia stopera
 
 	countTime = setInterval(() => {
 		if (seconds < 9) {
-			// 0-10sek
+			// 0-9sek
 			seconds++;
 			stopwatch.textContent = `${minutes}:0${seconds}`;
 		} else if (seconds >= 9 && seconds < 59) {
@@ -36,6 +38,8 @@ const handleStart = () => {
 		}
 	}, 1000); //1s
 };
+// stop
+// =================
 const handleStop = () => {
 	time.innerHTML = `Ostatni czas: ${stopwatch.textContent}`; // ostatni czas na stop button
 
@@ -48,17 +52,20 @@ const handleStop = () => {
 
 	clearStuff();
 };
-
+// pauza
+// =================
 const handlePause = () => {
 	clearInterval(countTime); // zatrzymujemy interwał
 };
-
+// reset
+// =================
 const handleReset = () => {
 	time.style.visibility = `hidden`; // chowamy paragraf time
 	timesArr = []; // czyscimy tablice
 	clearStuff(); // clear
 };
-
+// czyszczenie
+// =================
 const clearStuff = () => {
 	// funkcja czyszcząca - reset interwału, stopwatch 0:00, timelist pusty, sekundy i minuty puste
 	clearInterval(countTime);
@@ -69,7 +76,7 @@ const clearStuff = () => {
 };
 
 //history
-
+// =================
 const showHistory = () => {
 	timeList.textContent = ``; //czyścimy liste, odpalamy pętle:
 
@@ -84,7 +91,9 @@ const showHistory = () => {
 		num++;
 	});
 };
-modalShadow.style.display === `block`
+// modal
+// =================
+modalShadow.style.display === `block`;
 const showModal = () => {
 	if (!(modalShadow.style.display === `block`)) {
 		// modal -> jezeli nie ma display block, to nadajemy style display block -> potem else display none
@@ -102,6 +111,7 @@ resetBtn.addEventListener(`click`, handleReset);
 historyBtn.addEventListener(`click`, showHistory);
 infoBtn.addEventListener(`click`, showModal);
 closeModalBtn.addEventListener(`click`, showModal);
+// =================
 window.addEventListener(`click`, e =>
 	e.target === modalShadow ? showModal() : false
 ); // zamykanie modalShadow -> sprawdzamy czy naszym targetem przy kliku jest modalShadow (cień naokoło instrukcji) -> jeżeli tak, to wywołujemy funkcję showModal, jezeli nie to nie robimy kompletnie nic
