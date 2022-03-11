@@ -68,7 +68,25 @@ const clearStuff = () => {
 	minutes = 0;
 };
 
+//history
+
+const showHistory = () => {
+	timeList.textContent = ``; //czyścimy liste, odpalamy pętle:
+
+	let num = 1; //num dla numerow pomiarow
+
+	timesArr.forEach(time => {
+		// iterujemy po tablicy, tworzymy nowe LI,
+		const newTime = document.createElement(`li`);
+		newTime.innerHTML = `Pomiar nr ${num}: <span>${time}</span>`; //wewnatrz LI newTime umieszczamy template string z num + time
+
+		timeList.appendChild(newTime); //kiedy nowa linijka z czasem zostanie dodana, dodajemy num++
+		num++;
+	});
+};
+
 startBtn.addEventListener(`click`, handleStart);
 pauseBtn.addEventListener(`click`, handlePause);
 stopBtn.addEventListener(`click`, handleStop);
 resetBtn.addEventListener(`click`, handleReset);
+historyBtn.addEventListener(`click`, showHistory);
