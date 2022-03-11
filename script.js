@@ -84,7 +84,7 @@ const showHistory = () => {
 		num++;
 	});
 };
-
+modalShadow.style.display === `block`
 const showModal = () => {
 	if (!(modalShadow.style.display === `block`)) {
 		// modal -> jezeli nie ma display block, to nadajemy style display block -> potem else display none
