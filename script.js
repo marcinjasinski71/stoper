@@ -15,21 +15,29 @@ let minutes = 0;
 let seconds = 0;
 
 const handleStart = () => {
+	clearInterval(countTime); // blokujemy mozliwosc wielokrotnego przyspieszenia intervala
+
 	countTime = setInterval(() => {
 		if (seconds < 9) {
+			// 0-10sek
 			seconds++;
 			stopwatch.textContent = `${minutes}:0${seconds}`;
 		} else if (seconds >= 9 && seconds < 59) {
+			// 10-59sek
 			seconds++;
 			stopwatch.textContent = `${minutes}:${seconds}`;
 		} else {
+			//min+
 			minutes++;
 			seconds = 0;
 			stopwatch.textContent = `${minutes}:00`;
 		}
+	}, 1000); //1s
+};
 
-		seconds++;
-	}, 100);
+const handlePause = () => {
+	clearInterval(countTime);
 };
 
 startBtn.addEventListener(`click`, handleStart);
+pauseBtn.addEventListener(`click`, handlePause);
