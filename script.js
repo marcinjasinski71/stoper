@@ -34,7 +34,7 @@ const handleStart = () => {
 			seconds = 0;
 			stopwatch.textContent = `${minutes}:00`;
 		}
-	}, 100); //1s
+	}, 1000); //1s
 };
 const handleStop = () => {
 	time.innerHTML = `Ostatni czas: ${stopwatch.textContent}`; // ostatni czas na stop button
@@ -85,8 +85,23 @@ const showHistory = () => {
 	});
 };
 
+const showModal = () => {
+	if (!(modalShadow.style.display === `block`)) {
+		// modal -> jezeli nie ma display block, to nadajemy style display block -> potem else display none
+		modalShadow.style.display = `block`;
+	} else {
+		modalShadow.style.display = `none`;
+	}
+	modalShadow.classList.add(`modal-animation`); // + animacja zeby byla plynnosc
+};
+
 startBtn.addEventListener(`click`, handleStart);
 pauseBtn.addEventListener(`click`, handlePause);
 stopBtn.addEventListener(`click`, handleStop);
 resetBtn.addEventListener(`click`, handleReset);
 historyBtn.addEventListener(`click`, showHistory);
+infoBtn.addEventListener(`click`, showModal);
+closeModalBtn.addEventListener(`click`, showModal);
+window.addEventListener(`click`, e =>
+	e.target === modalShadow ? showModal() : false
+); // zamykanie modalShadow -> sprawdzamy czy naszym targetem przy kliku jest modalShadow (cień naokoło instrukcji) -> jeżeli tak, to wywołujemy funkcję showModal, jezeli nie to nie robimy kompletnie nic
